@@ -30,8 +30,8 @@ print("x[1:, :]:\n", x[1:, :])      # 从第 1 行到最后
 print("\n4. 步长切片:")
 print("x[::2]:\n", x[::2])          # 每隔一行取一行
 print("x[:, ::2]:\n", x[:, ::2])    # 每隔一列取一列
-print("x[::-1]:\n", x[::-1])        # 行倒序
-print("x[::-1, ::-1]:\n", x[::-1, ::-1])  # 全部倒序
+print("torch.flip(x, dims=[0]):\n", torch.flip(x, dims=[0]))        # 行倒序（PyTorch 不支持 x[::-1]）
+print("torch.flip(x, dims=[0, 1]):\n", torch.flip(x, dims=[0, 1]))  # 全部倒序
 
 # 5. 花式索引（用整数列表或张量指定位置）
 print("\n5. 花式索引:")
