@@ -11,6 +11,12 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
+# ==================== 0. 设备检测：优先使用 GPU 加速 ====================
+
+# 有 NVIDIA GPU 且安装了 CUDA 版 PyTorch 时，自动用 GPU 训练；否则回退到 CPU
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"使用设备: {device}")
+
 # ==================== 1. 数据准备：字符级分词 ====================
 
 def load_corpus(path, repeat=10):
@@ -34,8 +40,8 @@ print(f"字符表大小: {vocab_size}, 字符: {''.join(chars)}")
 stoi = {ch: i for i, ch in enumerate(chars)}   # 字符 -> 索引（查表用）
 itos = {i: ch for i, ch in enumerate(chars)}   # 索引 -> 字符
 
-# 全文转为 torch.long 张量，并按 9:1 划分训练集与验证集
-data = torch.tensor([stoi[c] for c in corpus], dtype=torch.long)
+# 全文转为 torch.long 张量（直接创建在目标设备上），并按 9:1 划分训练集与验证集
+data = torch.tensor([stoi[c] for c in corpus], dtype=torch.long, device=device)
 n = int(0.9 * len(data))
 train_data, val_data = data[:n], data[n:]
 print(f"训练集: {len(train_data)} 字符, 验证集: {len(val_data)} 字符")
@@ -130,7 +136,8 @@ class MiniGPT(nn.Module):
 
 def get_batch(data, batch_size=32):
     """随机取一批长度为 block_size 的序列；输入和目标各错开一个字符（下一字符预测）"""
-    ix = torch.randint(len(data) - block_size, (batch_size,))
+    # 随机索引也要生成在 data 所在的设备上，否则 GPU 张量无法被 CPU 索引
+    ix = torch.randint(len(data) - block_size, (batch_size,), device=device)
     x = torch.stack([data[i:i + block_size] for i in ix])            # 输入：前 64 个字符
     y = torch.stack([data[i + 1:i + block_size + 1] for i in ix])    # 目标：后移 1 位的 64 个字符
     return x, y
@@ -150,8 +157,10 @@ def estimate_loss(model, train_data, val_data, loss_fn, batch_size=32):
     model.train()
     return losses
 
-torch.manual_seed(42)   # 固定随机种子，保证结果可复现
-model = MiniGPT(vocab_size)
+torch.manual_seed(42)            # 固定随机种子，保证结果可复现
+if device.type == "cuda":
+    torch.cuda.manual_seed_all(42)   # 同时固定 CUDA 端的随机种子
+model = MiniGPT(vocab_size).to(device)   # 把模型参数迁移到 GPU 上（无 GPU 则留在 CPU）
 print(f"MiniGPT 参数量: {sum(p.numel() for p in model.parameters()):,}")
 
 optimizer = optim.AdamW(model.parameters(), lr=1e-3)      # AdamW 优化器
@@ -183,7 +192,7 @@ def generate(model, start="臣亮言", max_new_tokens=200, temperature=1.0):
     - temperature 越低，输出越保守（可调成 0.8 让古文更连贯）
     """
     model.eval()
-    idx = torch.tensor([[stoi[c] for c in start]], dtype=torch.long)  # 起始字符串转为索引
+    idx = torch.tensor([[stoi[c] for c in start]], dtype=torch.long, device=device)  # 起始字符串转为索引（在目标设备上生成）
     with torch.no_grad():
         for _ in range(max_new_tokens):
             idx_cond = idx[:, -model.block_size:]                     # 只取最近 block_size 个字符
