@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e895428c-1cb8-482b-91fd-a7362da646a5" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/day1.2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/day1.3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/day1.1.py" beforeDir="false" afterPath="$PROJECT_DIR$/day1.1.py" afterDir="false" />
-    </list>
+    <list default="true" id="e895428c-1cb8-482b-91fd-a7362da646a5" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -187,7 +182,7 @@
       <workItem from="1789405049999" duration="209000" />
       <workItem from="1789405688190" duration="8000" />
       <workItem from="1789433500778" duration="114000" />
-      <workItem from="1789433639139" duration="1171000" />
+      <workItem from="1789433639139" duration="1571000" />
     </task>
     <servers />
   </component>
@@ -195,7 +190,7 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/PyTorch$day1_3.coverage" NAME="day1.3 覆盖结果" MODIFIED="1789434799522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PyTorch$day1_3.coverage" NAME="day1.3 覆盖结果" MODIFIED="1789435178876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PyTorch$day1_2.coverage" NAME="day1.2 覆盖结果" MODIFIED="1789434709315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PyTorch$day1_4.coverage" NAME="day1.4 覆盖结果" MODIFIED="1789434437319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PyTorch$day1_1.coverage" NAME="day1.1 覆盖结果" MODIFIED="1789434635603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
